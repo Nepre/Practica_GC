@@ -1,0 +1,439 @@
+# depslib dependency file v1.0
+1351893396 source:g:\users\docencia\gráficos por computador (gc-gim)\prácticas\cargl\main.cpp
+	<windows.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	"load3ds.c"
+
+976659772 g:\users\docencia\gráficos por computador (gc-gim)\prácticas\cargl\glut\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1023918422 g:\users\docencia\gráficos por computador (gc-gim)\prácticas\cargl\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1352024675 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\cargl\main.cpp
+	<string.h>
+	<GL/glui.h>
+
+976659772 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\cargl\glut\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1352020667 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\cargl\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1352020431 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\cargl\load3ds.h
+
+1023918422 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\cargl\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1352062927 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl2\cargl\main.cpp
+	<string.h>
+	<GL/glui.h>
+	"Objects.h"
+
+1352064014 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl2\cargl\objects.h
+	<GL/glui.h>
+
+1352063867 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl2\cargl\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1352020667 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl2\cargl\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1381770338 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1352071180 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl\objects.h
+	<GL/glui.h>
+
+1381773559 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1352024267 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1381773938 source:d:\cargl\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1352071180 d:\cargl\objects.h
+	<GL/glui.h>
+
+1352120982 source:d:\cargl\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1352024267 d:\cargl\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1445459598 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1445461835 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\objects.h
+	"Shader.h"
+	"Program.h"
+	<GL/glui.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1445460634 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1352024267 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1431219412 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<stdexcept>
+
+1431219412 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\program.h
+	<stdexcept>
+	<vector>
+	<GL/glew.h>
+
+1445339540 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\program.cpp
+	"Program.h"
+
+1445366915 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\shader.cpp
+	"Shader.h"
+
+1445240554 source:f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1445256447 f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\objects.h
+	"Shader.h"
+	"Program.h"
+	<GL/glui.h>
+
+1431215812 f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<stdexcept>
+
+1431215812 f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\program.h
+	<stdexcept>
+	<vector>
+	<GL/glew.h>
+
+1445257565 source:f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1352024267 f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1445190919 source:f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\program.cpp
+	"Program.h"
+
+1445190932 source:f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v4\shader.cpp
+	"Shader.h"
+
+1445458834 source:f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1445502590 f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\objects.h
+	"Shader.h"
+	"Program.h"
+	<GL/glui.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1431215812 f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<stdexcept>
+
+1431215812 f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\program.h
+	<stdexcept>
+	<vector>
+	<GL/glew.h>
+
+1445335940 source:f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\program.cpp
+	"Program.h"
+
+1445363315 source:f:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\shader.cpp
+	"Shader.h"
+
+1473418358 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1473420932 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\objects.h
+	"Shader.h"
+	"Program.h"
+	<GL/glui.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1431219412 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<stdexcept>
+
+1431219412 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\program.h
+	<stdexcept>
+	<vector>
+	<GL/glew.h>
+
+1445339540 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\program.cpp
+	"Program.h"
+
+1445366915 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\shader.cpp
+	"Shader.h"
+
+1473420963 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1352024267 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1445529465 source:l:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1445502590 l:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\objects.h
+	"Shader.h"
+	"Program.h"
+	<GL/glui.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1431215812 l:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<stdexcept>
+
+1431215812 l:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\program.h
+	<stdexcept>
+	<vector>
+	<GL/glew.h>
+
+1352020667 l:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1445335940 source:l:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\program.cpp
+	"Program.h"
+
+1445363315 source:l:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\shader.cpp
+	"Shader.h"
+
+1445945194 source:l:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2 (shaders)\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1473420963 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2.1 (shaders)\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1473420932 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2.1 (shaders)\objects.h
+	"Shader.h"
+	"Program.h"
+	<GL/glui.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1431219412 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2.1 (shaders)\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<stdexcept>
+
+1431219412 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2.1 (shaders)\program.h
+	<stdexcept>
+	<vector>
+	<GL/glew.h>
+
+1352024267 i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2.1 (shaders)\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1445339540 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2.1 (shaders)\program.cpp
+	"Program.h"
+
+1445366915 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2.1 (shaders)\shader.cpp
+	"Shader.h"
+
+1473421139 source:i:\users\docencia\gráficos por computador (gc-gim)\prácticas\opengl\cargl.v2.1 (shaders)\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1445335940 source:c:\universidad\multimedia3therm1\gc\cargl.v2.1 (shaders)\program.cpp
+	"Program.h"
+
+1431215812 c:\universidad\multimedia3therm1\gc\cargl.v2.1 (shaders)\program.h
+	<stdexcept>
+	<vector>
+	<GL/glew.h>
+
+1445363315 source:c:\universidad\multimedia3therm1\gc\cargl.v2.1 (shaders)\shader.cpp
+	"Shader.h"
+
+1539676372 c:\universidad\multimedia3therm1\gc\cargl.v2.1 (shaders)\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<stdexcept>
+
+1542023615 source:c:\universidad\multimedia3therm1\gc\cargl.v2.1 (shaders)\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1542023462 c:\universidad\multimedia3therm1\gc\cargl.v2.1 (shaders)\objects.h
+	"Shader.h"
+	"Program.h"
+	<GL/glui.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1542040683 source:c:\universidad\multimedia3therm1\gc\cargl.v2.1 (shaders)\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1352017067 c:\universidad\multimedia3therm1\gc\cargl.v2.1 (shaders)\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1544491799 source:c:\universidad\multimedia3therm1\gc\edu\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+
+1544491830 c:\universidad\multimedia3therm1\gc\edu\objects.h
+	"Shader.h"
+	"Program.h"
+	<GL/glui.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1539676372 c:\universidad\multimedia3therm1\gc\edu\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<stdexcept>
+
+1431215812 c:\universidad\multimedia3therm1\gc\edu\program.h
+	<stdexcept>
+	<vector>
+	<GL/glew.h>
+
+1544491164 source:c:\universidad\multimedia3therm1\gc\edu\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1352017067 c:\universidad\multimedia3therm1\gc\edu\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1445335940 source:c:\universidad\multimedia3therm1\gc\edu\program.cpp
+	"Program.h"
+
+1445363315 source:c:\universidad\multimedia3therm1\gc\edu\shader.cpp
+	"Shader.h"
+
+1544491671 c:\universidad\multimedia3therm1\gc\edu\loadjpeg.c
+	<stdio.h>
+	<malloc.h>
+
+1544494037 source:c:\universidad\multimedia3therm1\gc\edutexturas\main.cpp
+	"Objects.h"
+	<GL\glui.h>
+	"loadjpeg.c"
+	<iostream>
+
+1544492019 c:\universidad\multimedia3therm1\gc\edutexturas\objects.h
+	"Shader.h"
+	"Program.h"
+	<GL/glui.h>
+	<glm/glm.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+
+1539676372 c:\universidad\multimedia3therm1\gc\edutexturas\shader.h
+	<GL/glew.h>
+	<iostream>
+	<fstream>
+	<stdexcept>
+
+1431215812 c:\universidad\multimedia3therm1\gc\edutexturas\program.h
+	<stdexcept>
+	<vector>
+	<GL/glew.h>
+
+1544519352 source:c:\universidad\multimedia3therm1\gc\edutexturas\objects.cpp
+	"Objects.h"
+	<GL/glui.h>
+	"load3ds.c"
+
+1352017067 c:\universidad\multimedia3therm1\gc\edutexturas\load3ds.c
+	<math.h>
+	<stdio.h>
+	<malloc.h>
+
+1445335940 source:c:\universidad\multimedia3therm1\gc\edutexturas\program.cpp
+	"Program.h"
+
+1445363315 source:c:\universidad\multimedia3therm1\gc\edutexturas\shader.cpp
+	"Shader.h"
+
+1544491671 c:\universidad\multimedia3therm1\gc\edutexturas\loadjpeg.c
+	<stdio.h>
+	<malloc.h>
+

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CarGL" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/CarGL" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Debug" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/CarGL" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Release" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Linker>
+			<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\glew32s.lib" />
+			<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\glew32.lib" />
+			<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libglui32.a" />
+			<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\glut32.lib" />
+			<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libglu32.a" />
+			<Add library="C:\Program Files (x86)\CodeBlocks\MinGW\lib\libopengl32.a" />
+		</Linker>
+		<Unit filename="Objects.cpp" />
+		<Unit filename="Objects.h" />
+		<Unit filename="Program.cpp" />
+		<Unit filename="Program.h" />
+		<Unit filename="Shader.cpp" />
+		<Unit filename="Shader.h" />
+		<Unit filename="Shaders/FragmentShader.glsl" />
+		<Unit filename="Shaders/VertexShader.glsl" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
