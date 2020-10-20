@@ -286,8 +286,8 @@ int main(int argc, char* argv[])
     car2->tx = -10;
     car2->tz = -20;
 
-    car2->colores[0][0] = 0.3;
-    car2->colores[0][1] = 0.5;
+    car2->colores[0][0] = 0.35;
+    car2->colores[0][1] = 0.1;
     car2->colores[0][2] = 0.4;
     car2->colores[0][3] = 1.0;
 

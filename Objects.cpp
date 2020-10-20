@@ -38,7 +38,9 @@ GLfloat mat_shininess_c[1] = { 100.0f };
 float view_rotate_c[16] = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 float view_position_c[3] = { 0.0, -2.0, -9.0 };
 
-float coloresc_c[2][4] = { {0.756, 0.792, 0.905, 1.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del coche
+float coloresc_c[2][4] = { {0.756, 0.792, 0.905, 1.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del
+float coloresc_c2[2][4] = { {0.35, 0.1, 0.4, 1.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del coche
+
 float coloresr_c[2][4] = { {0.3, 0.3, 0.3, 1.0}, {1.0, 1.0, 1.0, 1.0}}; // Color de la carretera
 float coloresArbol_c[2][4] = { {0.372, 0.635, 0.341, 1.0}, {1.0, 1.0, 1.0, 1.0}};
 float coloresCabina_c[2][4] = { {0.901, 0.058, 0.196, 1.0}, {1.0, 1.0, 1.0, 1.0}};
@@ -1195,7 +1197,10 @@ void __fastcall TEscena::Render()
         glFrontFace(GL_CCW);
     }
 
-    if(camara == 0){
+    TPrimitiva *coche           = NULL;
+    coche                       = GetCar(escena.seleccion);
+
+    if(camara == 0 || coche == NULL){
 
         viewMatrix      = glm::mat4(1.0f);
         rotateMatrix    = glm::make_mat4(view_rotate);
@@ -1205,9 +1210,6 @@ void __fastcall TEscena::Render()
 
     }
     else if(camara == 1){
-
-        TPrimitiva *coche           = NULL;
-        coche                       = GetCar(escena.seleccion);
         viewMatrix                  = glm::mat4(1.0f);
         glm::vec3 cameraPosition    = glm::vec3(coche->tx+10, coche->ty+70, coche->tz);
         glm::vec3 cameraFocus       = glm::vec3(coche->tx-5, coche->ty-5, coche->tz);
@@ -1216,8 +1218,6 @@ void __fastcall TEscena::Render()
 
     }
     else{
-        TPrimitiva *coche           = NULL;
-        coche                       = GetCar(escena.seleccion);
         viewMatrix                  = glm::mat4(1.0f);
         glm::vec3 cameraPosition    = glm::vec3(coche->tx+10, coche->ty+3, coche->tz);
         glm::vec3 cameraFocus       = glm::vec3(coche->tx-15, coche->ty-5, coche->tz);
@@ -1235,19 +1235,76 @@ void __fastcall TEscena::Render()
     glutSwapBuffers();
 }
 
+/***************************************** TEscena::renderSelection() *****************/
+
+void __fastcall TEscena::renderSelection()
+{
+    glm::mat4 rotateMatrix;
+
+    glClearColor(0.0, 0.7, 0.9, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    TPrimitiva *coche           = NULL;
+    coche                       = GetCar(escena.seleccion);
+
+    if(camara == 0 || coche == NULL){
+
+        viewMatrix      = glm::mat4(1.0f);
+        rotateMatrix    = glm::make_mat4(view_rotate);
+        viewMatrix      = glm::translate(viewMatrix, glm::vec3(view_position[0], view_position[1], view_position[2]));
+        viewMatrix      = viewMatrix*rotateMatrix;
+        viewMatrix      = glm::scale(viewMatrix, glm::vec3(scale, scale, scale));
+
+    }
+    else if(camara == 1){
+
+
+        viewMatrix                  = glm::mat4(1.0f);
+        glm::vec3 cameraPosition    = glm::vec3(coche->tx+10, coche->ty+70, coche->tz);
+        glm::vec3 cameraFocus       = glm::vec3(coche->tx-5, coche->ty-5, coche->tz);
+        glm::vec3 orientation       = glm::vec3(0,1,0);
+        viewMatrix                  = glm::lookAt(cameraPosition, cameraFocus, orientation);
+
+    }
+    else{
+        viewMatrix                  = glm::mat4(1.0f);
+        glm::vec3 cameraPosition    = glm::vec3(coche->tx+10, coche->ty+3, coche->tz);
+        glm::vec3 cameraFocus       = glm::vec3(coche->tx-15, coche->ty-5, coche->tz);
+        glm::vec3 orientation       = glm::vec3(0,1,0);
+        viewMatrix                  = glm::lookAt(cameraPosition, cameraFocus, orientation);
+
+    }
+
+    glUniform1f(uLuz0IntensityLocation, 0.0f);
+    glUniform1f(uLuz1IntensityLocation, 0.0f);
+
+    glUniformMatrix4fv(uVMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix)); // Para la luz matrix view pero sin escalado!
+
+    // Dibujar carretera y objetos
+    RenderObjects(seleccion);
+
+    // Dibujar coches
+    RenderCars(seleccion);
+
+    //glutSwapBuffers();
+}
+
 // Selecciona un objeto a través del ratón
 void __fastcall TEscena::Pick3D(int mouse_x, int mouse_y)
 {
     unsigned char res[4];
     GLint viewport[4];
 
-    Render();
+    renderSelection();
+
     glGetIntegerv(GL_VIEWPORT, viewport);
     glReadPixels(mouse_x, viewport[3] + viewport[1] - mouse_y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, &res);
     std::cout<<(int)res[0]<<std::endl;
 
-    if(res[0] == 11){
+    if(res[0] == 13){
           seleccion = 2;
+
     }
     else{
         if(res[0] == 29){
@@ -1257,13 +1314,18 @@ void __fastcall TEscena::Pick3D(int mouse_x, int mouse_y)
             seleccion = 0;
         }
     }
+
+    //gui.sel = seleccion;
+    //gui.ControlCallback(SEL_ID);
+    //gui.Idle();
+
 }
 
 //************************************************************** Clase TGui
 
 TGui::TGui()
 {
-    sel = 1;
+    sel = 0;
     enable_panel2 = 1;
     light0_enabled = 1;
     light1_enabled = 1;
@@ -1387,7 +1449,7 @@ void __fastcall TGui::Init(int main_window) {
     new GLUI_StaticText( glui, "" );
     new GLUI_Button( glui, "Resetear Posicion", RESET_ID, controlCallback );
 
-    // Añade una separación
+    // Añade una separaciónglutSetWindow(window_id);
     new GLUI_StaticText( glui, "" );
 
     new GLUI_Separator( glui );
@@ -1520,7 +1582,6 @@ void __fastcall TGui::Idle( void )
   /*  GLUI_Master.sync_live_all();  -- not needed - nothing to sync in this
                                        application  */
     if (enable_panel2)
-
         glui2->enable();
     else
         glui2->disable();
@@ -1556,6 +1617,6 @@ void __fastcall TGui::Motion(int x, int y )
 
 void __fastcall TGui::Mouse(int button, int button_state, int x, int y )
 {
-    //if(button_state == 0) escena.Pick3D(x, y);
+    if(button_state == 0) escena.Pick3D(x, y);
 }
 
