@@ -358,6 +358,78 @@ TPrimitiva::TPrimitiva(int DL, int t)
             modelo0 = Load3DS("../../Modelos/Ciudad/pueras.3ds", &num_vertices0);
             break;
 		}
+		case EDIFICIOMEDIEVAL_ID:{
+
+		    tx = ty = tz = 0;
+
+		    memcpy(colores, coloresTejado_c, 8*sizeof(float));
+
+            //************************ Cargar modelos 3ds ***********************************
+            // formato 8 floats por vértice (x, y, z, A, B, C, u, v)
+            modelo0 = Load3DS("../../Modelos/Ciudad/EdificioMedieval1.3ds", &num_vertices0);
+            break;
+
+		}
+		case NINETREE_ID:{
+
+		    tx = ty = tz = 0;
+
+		    memcpy(colores, coloresTejado_c, 8*sizeof(float));
+
+            //************************ Cargar modelos 3ds ***********************************
+            // formato 8 floats por vértice (x, y, z, A, B, C, u, v)
+            modelo0 = Load3DS("../../Modelos/Ciudad/NineTree.3ds", &num_vertices0);
+            break;
+
+		}
+		case MERCADO_ID:{
+
+		    tx = ty = tz = 0;
+
+		    memcpy(colores, coloresTejado_c, 8*sizeof(float));
+
+            //************************ Cargar modelos 3ds ***********************************
+            // formato 8 floats por vértice (x, y, z, A, B, C, u, v)
+            modelo0 = Load3DS("../../Modelos/Ciudad/Mercado.3ds", &num_vertices0);
+            break;
+
+		}
+		case FAROLAS2_ID:{
+
+		    tx = ty = tz = 0;
+
+		    memcpy(colores, coloresTejado_c, 8*sizeof(float));
+
+            //************************ Cargar modelos 3ds ***********************************
+            // formato 8 floats por vértice (x, y, z, A, B, C, u, v)
+            modelo0 = Load3DS("../../Modelos/Ciudad/Farolas2.3ds", &num_vertices0);
+            break;
+
+		}
+		case CARRETERA2_ID:{
+
+		    tx = ty = tz = 0;
+
+		    memcpy(colores, coloresTejado_c, 8*sizeof(float));
+
+            //************************ Cargar modelos 3ds ***********************************
+            // formato 8 floats por vértice (x, y, z, A, B, C, u, v)
+            modelo0 = Load3DS("../../Modelos/Ciudad/Carretera2.3ds", &num_vertices0);
+            break;
+
+		}
+		case VENTANAS2_ID:{
+
+		    tx = ty = tz = 0;
+
+		    memcpy(colores, coloresTejado_c, 8*sizeof(float));
+
+            //************************ Cargar modelos 3ds ***********************************
+            // formato 8 floats por vértice (x, y, z, A, B, C, u, v)
+            modelo0 = Load3DS("../../Modelos/Ciudad/Ventanas2.3ds", &num_vertices0);
+            break;
+
+		}
 
 	} // switch
 }
@@ -825,6 +897,126 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
             }
             break;
         }
+
+        case EDIFICIOMEDIEVAL_ID: {
+            if (escena.show_road) {
+                // Cálculo de la ModelView
+                modelMatrix     = glm::mat4(1.0f); // matriz identidad
+                modelViewMatrix = escena.viewMatrix * modelMatrix;
+                // Envía nuestra ModelView al Vertex Shader
+                glUniformMatrix4fv(escena.uMVMatrixLocation, 1, GL_FALSE, &modelViewMatrix[0][0]);
+
+                // Pintar la carretera
+                glUniform4fv(escena.uColorLocation, 1, colores[0]);
+                //                   Asociamos los vértices y sus normales
+                glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
+                glVertexAttribPointer(escena.aNormalLocation, NORMAL_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+3);
+
+                glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+
+            }
+            break;
+        }
+
+        case NINETREE_ID: {
+            if (escena.show_road) {
+                // Cálculo de la ModelView
+                modelMatrix     = glm::mat4(1.0f); // matriz identidad
+                modelViewMatrix = escena.viewMatrix * modelMatrix;
+                // Envía nuestra ModelView al Vertex Shader
+                glUniformMatrix4fv(escena.uMVMatrixLocation, 1, GL_FALSE, &modelViewMatrix[0][0]);
+
+                // Pintar la carretera
+                glUniform4fv(escena.uColorLocation, 1, colores[0]);
+                //                   Asociamos los vértices y sus normales
+                glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
+                glVertexAttribPointer(escena.aNormalLocation, NORMAL_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+3);
+
+                glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+
+            }
+            break;
+        }
+
+        case MERCADO_ID: {
+            if (escena.show_road) {
+                // Cálculo de la ModelView
+                modelMatrix     = glm::mat4(1.0f); // matriz identidad
+                modelViewMatrix = escena.viewMatrix * modelMatrix;
+                // Envía nuestra ModelView al Vertex Shader
+                glUniformMatrix4fv(escena.uMVMatrixLocation, 1, GL_FALSE, &modelViewMatrix[0][0]);
+
+                // Pintar la carretera
+                glUniform4fv(escena.uColorLocation, 1, colores[0]);
+                //                   Asociamos los vértices y sus normales
+                glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
+                glVertexAttribPointer(escena.aNormalLocation, NORMAL_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+3);
+
+                glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+
+            }
+            break;
+        }
+        case FAROLAS2_ID: {
+            if (escena.show_road) {
+                // Cálculo de la ModelView
+                modelMatrix     = glm::mat4(1.0f); // matriz identidad
+                modelViewMatrix = escena.viewMatrix * modelMatrix;
+                // Envía nuestra ModelView al Vertex Shader
+                glUniformMatrix4fv(escena.uMVMatrixLocation, 1, GL_FALSE, &modelViewMatrix[0][0]);
+
+                // Pintar la carretera
+                glUniform4fv(escena.uColorLocation, 1, colores[0]);
+                //                   Asociamos los vértices y sus normales
+                glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
+                glVertexAttribPointer(escena.aNormalLocation, NORMAL_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+3);
+
+                glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+
+            }
+            break;
+        }
+
+        case CARRETERA2_ID: {
+            if (escena.show_road) {
+                // Cálculo de la ModelView
+                modelMatrix     = glm::mat4(1.0f); // matriz identidad
+                modelViewMatrix = escena.viewMatrix * modelMatrix;
+                // Envía nuestra ModelView al Vertex Shader
+                glUniformMatrix4fv(escena.uMVMatrixLocation, 1, GL_FALSE, &modelViewMatrix[0][0]);
+
+                // Pintar la carretera
+                glUniform4fv(escena.uColorLocation, 1, colores[0]);
+                //                   Asociamos los vértices y sus normales
+                glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
+                glVertexAttribPointer(escena.aNormalLocation, NORMAL_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+3);
+
+                glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+
+            }
+            break;
+        }
+
+        case VENTANAS2_ID: {
+            if (escena.show_road) {
+                // Cálculo de la ModelView
+                modelMatrix     = glm::mat4(1.0f); // matriz identidad
+                modelViewMatrix = escena.viewMatrix * modelMatrix;
+                // Envía nuestra ModelView al Vertex Shader
+                glUniformMatrix4fv(escena.uMVMatrixLocation, 1, GL_FALSE, &modelViewMatrix[0][0]);
+
+                // Pintar la carretera
+                glUniform4fv(escena.uColorLocation, 1, colores[0]);
+                //                   Asociamos los vértices y sus normales
+                glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
+                glVertexAttribPointer(escena.aNormalLocation, NORMAL_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+3);
+
+                glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+
+            }
+            break;
+        }
+
 
         case PUERTAS_ID: {
             if (escena.show_road) {

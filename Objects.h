@@ -54,6 +54,12 @@
 #define VENTANASBASICASUB_ID    1020
 #define VENTANASPICOBASICA_ID   1021
 #define PUERTAS_ID              1022
+#define EDIFICIOMEDIEVAL_ID     1023
+#define NINETREE_ID             1024
+#define MERCADO_ID              1025
+#define FAROLAS2_ID             1026
+#define CARRETERA2_ID           1027
+#define VENTANAS2_ID            1028
 
 #define MODO_VISTA_ID           1100
 #define MODO_CAMARA_ID          1101

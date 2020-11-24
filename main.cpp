@@ -279,7 +279,13 @@ int main(int argc, char* argv[])
     TPrimitiva *ventanasbasica = new TPrimitiva(1, VENTANASBASICA_ID);
     TPrimitiva *ventanasbasicasub = new TPrimitiva(1, VENTANASBASICASUB_ID);
     TPrimitiva *ventanapicobasica = new TPrimitiva(1, VENTANASPICOBASICA_ID);
+    TPrimitiva *edificiomedieval1 = new TPrimitiva(1, EDIFICIOMEDIEVAL_ID);
+    TPrimitiva *ninetree = new TPrimitiva(1, NINETREE_ID);
+    TPrimitiva *mercado = new TPrimitiva(1, MERCADO_ID);
+    TPrimitiva *farolas2 = new TPrimitiva(1, FAROLAS2_ID);
+    TPrimitiva *carretera2 = new TPrimitiva(1, CARRETERA2_ID);
     TPrimitiva *puertas = new TPrimitiva(1, PUERTAS_ID);
+    TPrimitiva *ventanas2 = new TPrimitiva(1, VENTANAS2_ID);
 
 
 
@@ -318,6 +324,12 @@ int main(int argc, char* argv[])
     escena.AddObject(ventanasbasica);
     escena.AddObject(ventanasbasicasub);
     escena.AddObject(ventanapicobasica);
+    escena.AddObject(edificiomedieval1);
+    escena.AddObject(ninetree);
+    escena.AddObject(mercado);
+    escena.AddObject(farolas2);
+    escena.AddObject(carretera2);
+    escena.AddObject(ventanas2);
 
     cargarTexturas();
 

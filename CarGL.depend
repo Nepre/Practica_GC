@@ -437,13 +437,13 @@
 	<stdio.h>
 	<malloc.h>
 
-1603198233 source:d:\universidad\multimedia3therm1\gc\practica_gc\main.cpp
+1604785617 source:d:\universidad\multimedia3therm1\gc\practica_gc\main.cpp
 	"Objects.h"
 	<GL\glui.h>
 	"loadjpeg.c"
 	<iostream>
 
-1603195250 d:\universidad\multimedia3therm1\gc\practica_gc\objects.h
+1604785570 d:\universidad\multimedia3therm1\gc\practica_gc\objects.h
 	"Shader.h"
 	"Program.h"
 	<GL/glui.h>
@@ -451,34 +451,34 @@
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-1601281363 d:\universidad\multimedia3therm1\gc\practica_gc\shader.h
+1601277763 d:\universidad\multimedia3therm1\gc\practica_gc\shader.h
 	<GL/glew.h>
 	<iostream>
 	<fstream>
 	<stdexcept>
 
-1601281363 d:\universidad\multimedia3therm1\gc\practica_gc\program.h
+1601277763 d:\universidad\multimedia3therm1\gc\practica_gc\program.h
 	<stdexcept>
 	<vector>
 	<GL/glew.h>
 
-1544495271 d:\universidad\multimedia3therm1\gc\practica_gc\loadjpeg.c
+1544491671 d:\universidad\multimedia3therm1\gc\practica_gc\loadjpeg.c
 	<stdio.h>
 	<malloc.h>
 
-1603197096 source:d:\universidad\multimedia3therm1\gc\practica_gc\objects.cpp
+1604785638 source:d:\universidad\multimedia3therm1\gc\practica_gc\objects.cpp
 	"Objects.h"
 	<GL/glui.h>
 	"load3ds.c"
 
-1352020667 d:\universidad\multimedia3therm1\gc\practica_gc\load3ds.c
+1352017067 d:\universidad\multimedia3therm1\gc\practica_gc\load3ds.c
 	<math.h>
 	<stdio.h>
 	<malloc.h>
 
-1445339540 source:d:\universidad\multimedia3therm1\gc\practica_gc\program.cpp
+1445335940 source:d:\universidad\multimedia3therm1\gc\practica_gc\program.cpp
 	"Program.h"
 
-1445366915 source:d:\universidad\multimedia3therm1\gc\practica_gc\shader.cpp
+1445363315 source:d:\universidad\multimedia3therm1\gc\practica_gc\shader.cpp
 	"Shader.h"
 
