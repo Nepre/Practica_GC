@@ -104,6 +104,7 @@
 #define U_POS1                  "u_Pos1"
 #define U_INT0                  "u_Int0"
 #define U_INT1                  "u_Int1"
+#define U_SELECTION_ENABLED     "u_selection_enabled"
 
 
 #define A_TEXTURECORD "a_TextureCoord"
@@ -161,6 +162,10 @@ public: // Atributos de la clase
 		//int uLuz2PositionLocation;
 		int uLuz0IntensityLocation;
 		int uLuz1IntensityLocation;
+
+		int uSelectionEnabledLocation;
+
+		//int uNoLights;
 		//int uLuz2IntensityLocation;
 
 		unsigned char * texturas[3]; // array de tres texturas.

@@ -16,52 +16,60 @@ uniform float u_Int0;
 uniform float u_Int1;
 //uniform float u_Int2;
 
+uniform int u_selection_enabled;
+
 
 varying vec4 v_Color;		        // out: Color al fragment shader
 
 void main()
 {
-    vec4 LightPos0 = u_VMatrix*u_Pos0;
-    vec4 LightPos1 = u_VMatrix*u_Pos1;
-    //vec4 LightPos2 = u_VMatrix*u_Pos2;
+    if(u_selection_enabled == 0){
+        vec4 LightPos0 = u_VMatrix*u_Pos0;
+        vec4 LightPos1 = u_VMatrix*u_Pos1;
+        //vec4 LightPos2 = u_VMatrix*u_Pos2;
 
-    vec3 P = vec3(u_MVMatrix * a_Position);	            // Posición del vértice
-	vec3 N = vec3(u_MVMatrix * vec4(a_Normal, 0.0));    // Normal del vértice
+        vec3 P = vec3(u_MVMatrix * a_Position);	            // Posición del vértice
+        vec3 N = vec3(u_MVMatrix * vec4(a_Normal, 0.0));    // Normal del vértice
 
-	float d0 = length(LightPos0.xyz - P);
-	float d1 = length(LightPos1.xyz - P);
-	//float d2 = length(LightPos2.xyz - P);
-	vec3  L0 = normalize(LightPos0.xyz - P);
-	vec3  L1 = normalize(LightPos1.xyz - P);
-	//vec3  L2 = normalize(LightPos2.xyz - P);
-	vec3 viewVec = normalize(vec3(-P)); // para la especular.
+        float d0 = length(LightPos0.xyz - P);
+        float d1 = length(LightPos1.xyz - P);
+        //float d2 = length(LightPos2.xyz - P);
+        vec3  L0 = normalize(LightPos0.xyz - P);
+        vec3  L1 = normalize(LightPos1.xyz - P);
+        //vec3  L2 = normalize(LightPos2.xyz - P);
+        vec4 coordenadas = vec4(P.x, P.y, P.z, 1.0);
+        vec4 matrizVista = (u_VMatrix[3][0], u_VMatrix[3][1], u_VMatrix[3][2], u_VMatrix[3][0]);
+        vec3 viewVec = normalize(vec3(u_VMatrix * matrizVista * (vec4(0.0, 0.0, 0.0, 1.0) - coordenadas))); // para la especular.
 
-	float ambient = 0.15;                               // (15% de int. ambiente)
-	float diffuse = 0.0;
-	float resultado = 0.0;
-	float specular = 0.0;
+        float ambient = 0.15;                               // (15% de int. ambiente)
+        float diffuse = 0.5;
+        float resultado = 0.0;
+        float specular = 0.0;
+        int especularidad = 20;
 
-	if (u_Luz0>0) {                                     // Si la luz 0 está encendida se calcula la intesidad difusa de L
-        diffuse = max(dot(N, L0), 0.0);		            // Cálculo de la int. difusa
-        // Cálculo de la atenuación
-        float attenuation = 80.0/(0.25+(0.01*d0)+(0.003*d0*d0));
-        vec3 reflectVec = reflect(-L0, N);
-        specular = clamp(dot(reflectVec, viewVec),0.0, 1.0);
-        specular = pow(specular, 5.0);
-        specular = specular*u_Int0;
-        resultado += diffuse*attenuation*u_Int0 + specular;
-	}
-	if (u_Luz1>0) {                                     // Si la luz 0 está encendida se calcula la intesidad difusa de L
-        diffuse = max(dot(N, L1), 0.0);		            // Cálculo de la int. difusa
-        // Cálculo de la atenuación
-        float attenuation = 80.0/(0.25+(0.01*d1)+(0.003*d1*d1));
-        vec3 reflectVec = reflect(-L1, N);
-        specular = clamp(dot(reflectVec, viewVec),0.0, 1.0);
-        specular = pow(specular, 5.0);
-        specular = specular*u_Int1;
-        resultado += diffuse*attenuation*u_Int1+ specular;
-	}
+        if (u_Luz0>0) {                                     // Si la luz 0 está encendida se calcula la intesidad difusa de L
+            diffuse = max(dot(N, L0), 0.0);		            // Cálculo de la int. difusa
+            // Cálculo de la atenuación
+            float attenuation = 80.0/(0.25+(0.01*d0)+(0.003*d0*d0));
+            // vec3 reflectVec = reflect(-L0, N);
+            specular = 2 * attenuation * pow(max(0.0, dot(reflect(-L0, N), viewVec)), especularidad);
+            resultado += diffuse*attenuation*u_Int0 + specular;
+        }
+        if (u_Luz1>0) {                                     // Si la luz 1 está encendida se calcula la intesidad difusa de L
+            diffuse = max(dot(N, L1), 0.0);		            // Cálculo de la int. difusa
+            // Cálculo de la atenuación
+            float attenuation = 80.0/(0.25+(0.01*d1)+(0.003*d1*d1));
+            // vec3 reflectVec = reflect(-L1, N);
+            specular = 2 * attenuation * pow(max(0.0, dot(reflect(-L0, N), viewVec)), especularidad);
+            resultado += diffuse*attenuation*u_Int1+ specular;
+        }
 
-	v_Color = u_Color * (ambient + resultado);
-	gl_Position = u_ProjectionMatrix * vec4(P, 1.0);
+        v_Color = u_Color * (ambient + resultado);
+        gl_Position = u_ProjectionMatrix * vec4(P, 1.0);
+    }
+    else{
+        vec3 P = vec3(u_MVMatrix * a_Position);	            // Posicion del vertice
+        v_Color = vec4(u_Color.x, u_Color.x, u_Color.x, 0);
+        gl_Position = u_ProjectionMatrix * vec4(P, 1.0);
+    }
 }

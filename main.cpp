@@ -127,7 +127,12 @@ static void SpecialKey(int key, int x, int y)
                 car->rot-=5;
             }
             break;
-
+        if(car->rot<-30){
+            car->rot = -30;
+        }
+        if(car->rot>30){
+            car->rot = 30;
+        }
 
     }
 

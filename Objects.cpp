@@ -38,7 +38,7 @@ GLfloat mat_shininess_c[1] = { 100.0f };
 float view_rotate_c[16] = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 float view_position_c[3] = { 0.0, -2.0, -9.0 };
 
-float coloresc_c[2][4] = { {0.756, 0.792, 0.905, 1.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del
+float coloresc_c[2][4] = { {0.4, 1, 0.2, 1.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del
 float coloresc_c2[2][4] = { {0.35, 0.1, 0.4, 1.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del coche
 
 float coloresr_c[2][4] = { {0.3, 0.3, 0.3, 1.0}, {1.0, 1.0, 1.0, 1.0}}; // Color de la carretera
@@ -1247,12 +1247,14 @@ void __fastcall TEscena::InitGL()
 
     uLuz0Location=shaderProgram->uniform(U_LUZ0);
     uLuz1Location=shaderProgram->uniform(U_LUZ1);
-    //uLuz2Location=shaderProgram->uniform(U_LUZ2);
+
     uLuz0PositionLocation=shaderProgram->uniform(U_POS0);
     uLuz1PositionLocation=shaderProgram->uniform(U_POS1);
 
     uLuz0IntensityLocation=shaderProgram->uniform(U_INT0);
     uLuz1IntensityLocation=shaderProgram->uniform(U_INT1);
+
+    uSelectionEnabledLocation = shaderProgram->uniform(U_SELECTION_ENABLED);
 
     glEnableVertexAttribArray(aTextureCoordLocation);
 
@@ -1352,6 +1354,8 @@ void __fastcall TEscena::Render()
     //glUniform4fv(uLuz2PositionLocation, 1, (const GLfloat *)escena.light2_position);
     glUniform1f(uLuz0IntensityLocation, gui.light0_intensity);
     glUniform1f(uLuz1IntensityLocation, gui.light1_intensity);
+
+    //glUniform1i(uNoLights, 1);
     //glUniform1f(uLuz2IntensityLocation, gui.light2_intensity);
 
     glUniformMatrix4fv(uVMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix)); // Para la luz matrix view pero sin escalado!
@@ -1402,9 +1406,34 @@ void __fastcall TEscena::Render()
 
     }
     else if(camara == 1){
+
         viewMatrix                  = glm::mat4(1.0f);
         glm::vec3 cameraPosition    = glm::vec3(coche->tx+10, coche->ty+70, coche->tz);
-        glm::vec3 cameraFocus       = glm::vec3(coche->tx-5, coche->ty-5, coche->tz);
+
+
+        float angle = glm::radians(-coche->ry);
+
+        double z1 = cameraPosition.z - coche->tz;
+        double x1 = cameraPosition.x - coche->tx;
+
+        double z2 = z1 * cos(angle) - x1 * sin(angle);
+        double x2 = z1 * sin(angle) + x1 * cos(angle);
+
+        cameraPosition.z = z2 + coche->tz;
+        cameraPosition.x = x2 + coche->tx;
+
+
+        glm::vec3 cameraFocus       = glm::vec3(coche->tx-15, coche->ty-5, coche->tz);
+
+        z1 = cameraFocus.z - coche->tz;
+        x1 = cameraFocus.x - coche->tx;
+
+        z2 = z1 * cos(angle) - x1 * sin(angle);
+        x2 = z1 * sin(angle) + x1 * cos(angle);
+
+        cameraFocus.z = z2 + coche->tz;
+        cameraFocus.x = x2 + coche->tx;
+
         glm::vec3 orientation       = glm::vec3(0,1,0);
         viewMatrix                  = glm::lookAt(cameraPosition, cameraFocus, orientation);
 
@@ -1412,13 +1441,43 @@ void __fastcall TEscena::Render()
     else{
         viewMatrix                  = glm::mat4(1.0f);
         glm::vec3 cameraPosition    = glm::vec3(coche->tx+10, coche->ty+3, coche->tz);
+
+
+
+        float angle = glm::radians(-coche->ry);
+
+        double z1 = cameraPosition.z - coche->tz;
+        double x1 = cameraPosition.x - coche->tx;
+
+        double z2 = z1 * cos(angle) - x1 * sin(angle);
+        double x2 = z1 * sin(angle) + x1 * cos(angle);
+
+        cameraPosition.z = z2 + coche->tz;
+        cameraPosition.x = x2 + coche->tx;
+
+
         glm::vec3 cameraFocus       = glm::vec3(coche->tx-15, coche->ty-5, coche->tz);
+
+        z1 = cameraFocus.z - coche->tz;
+        x1 = cameraFocus.x - coche->tx;
+
+        z2 = z1 * cos(angle) - x1 * sin(angle);
+        x2 = z1 * sin(angle) + x1 * cos(angle);
+
+        cameraFocus.z = z2 + coche->tz;
+        cameraFocus.x = x2 + coche->tx;
+
         glm::vec3 orientation       = glm::vec3(0,1,0);
         viewMatrix                  = glm::lookAt(cameraPosition, cameraFocus, orientation);
 
     }
 
+    //glUniform1i(uNoLights, 1);
+
     // Dibujar carretera y objetos
+    glUniform1i(uSelectionEnabledLocation, 0);
+
+
     RenderObjects(seleccion);
 
     // Dibujar coches
@@ -1470,8 +1529,11 @@ void __fastcall TEscena::renderSelection()
 
     glUniform1f(uLuz0IntensityLocation, 0.0f);
     glUniform1f(uLuz1IntensityLocation, 0.0f);
+    //glUniform1i(uNoLights, 1);
 
     glUniformMatrix4fv(uVMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix)); // Para la luz matrix view pero sin escalado!
+
+    glUniform1i(uSelectionEnabledLocation, 1);
 
     // Dibujar carretera y objetos
     RenderObjects(seleccion);
@@ -1494,12 +1556,12 @@ void __fastcall TEscena::Pick3D(int mouse_x, int mouse_y)
     glReadPixels(mouse_x, viewport[3] + viewport[1] - mouse_y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, &res);
     std::cout<<(int)res[0]<<std::endl;
 
-    if(res[0] == 13){
+    if(res[0] == 89){
           seleccion = 2;
 
     }
     else{
-        if(res[0] == 29){
+        if(res[0] == 102){
             seleccion = 1;
         }
         else{
