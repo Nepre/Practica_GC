@@ -1,11 +1,12 @@
-
 attribute vec4 a_Position;	        // in: Posición de cada vértice
 attribute vec3 a_Normal;	        // in: Normal de cada vértice
+attribute vec2 a_TextureCoord;
 
 uniform mat4 u_ProjectionMatrix; 	// in: Matriz Projection
 uniform mat4 u_MVMatrix;	        // in: Matriz ModelView
 uniform mat4 u_VMatrix;             // in: Matriz View (cámara)
 uniform vec4 u_Color;		        // in: Color del objeto
+
 uniform int  u_Luz0;                // in: Indica si la luz 0 está encedida
 uniform int  u_Luz1;
 //uniform int  u_Luz2;
@@ -20,16 +21,18 @@ uniform int u_selection_enabled;
 
 
 varying vec4 v_Color;		        // out: Color al fragment shader
+varying vec2 v_TextureCoord;       // out: Para el Fragment coordenadas de texturas
 
 void main()
 {
+    vec3 P = vec3(u_MVMatrix * a_Position);	            // Posición del vértice
+    vec3 N = vec3(u_MVMatrix * vec4(a_Normal, 0.0));    // Normal del vértice
+    v_TextureCoord = a_TextureCoord;
+
     if(u_selection_enabled == 0){
         vec4 LightPos0 = u_VMatrix*u_Pos0;
         vec4 LightPos1 = u_VMatrix*u_Pos1;
         //vec4 LightPos2 = u_VMatrix*u_Pos2;
-
-        vec3 P = vec3(u_MVMatrix * a_Position);	            // Posición del vértice
-        vec3 N = vec3(u_MVMatrix * vec4(a_Normal, 0.0));    // Normal del vértice
 
         float d0 = length(LightPos0.xyz - P);
         float d1 = length(LightPos1.xyz - P);
@@ -68,7 +71,6 @@ void main()
         gl_Position = u_ProjectionMatrix * vec4(P, 1.0);
     }
     else{
-        vec3 P = vec3(u_MVMatrix * a_Position);	            // Posicion del vertice
         v_Color = vec4(u_Color.x, u_Color.x, u_Color.x, 0);
         gl_Position = u_ProjectionMatrix * vec4(P, 1.0);
     }

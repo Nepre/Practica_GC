@@ -543,16 +543,38 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
                 glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
                 glVertexAttribPointer(escena.aNormalLocation, NORMAL_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+3);
 
+                glVertexAttribPointer(escena.aTextureCoordLocation, UV_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0 + 6);
+
+                glBindTexture(GL_TEXTURE_2D, escena.texturas_id[0]);
+                modelViewMatrix = escena.viewMatrix * modelMatrix;
+                glUniform1i(escena.activadaLocation, 0);
+                glUniform1i(escena.u_SamplerLocation, 0); // le pasamos al fragment la textura 0
+                glUniformMatrix4fv(escena.uMVMatrixLocation, 1, GL_FALSE, &modelViewMatrix[0][0]);
+                glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+                glActiveTexture(GL_TEXTURE0);
+
+
                 /*
                 glBindTexture(GL_TEXTURE_2D, escena.texturas_id[0]); // activo la textura con la que trabajar.
                 glUniform1i(escena.activadaLocation, 1);        // indicamos que vamos a trabajar con texturas al fragment
                 glUniform1i(escena.u_SamplerLocation, 0); // le pasamos al fragment la textura 0
                 glActiveTexture(GL_TEXTURE0); // y la textura activada va a la posicion 0.
 
+                glVertexAttribPointer(escena.aTextureCoordLocation, UV_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+6);
+
+
+
+
+                glBindTexture(GL_TEXTURE_2D, escena.texturas_id[0]); // activo la textura con la que trabajar.
+                glUniform1i(escena.activadaLocation, 1);        // indicamos que vamos a trabajar con texturas al fragment
+                glUniform1i(escena.u_SamplerLocation, 0); // le pasamos al fragment la textura 0
+                glActiveTexture(GL_TEXTURE0); // y la textura activada va a la posicion 0.
+
                 glVertexAttribPointer(escena.aTextureCoordLocation, UV_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0 + 6);
-                */
+
 
                 glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+                */
 
             }
             break;
@@ -1228,7 +1250,6 @@ void __fastcall TEscena::InitGL()
 
     aPositionLocation=shaderProgram->attrib(A_POSITION);
     aNormalLocation=shaderProgram->attrib(A_NORMAL);
-
     //aTextureCoordLocation = shaderProgram->attrib(A_TEXTURECORD);
     //u_SamplerLocation = shaderProgram->uniform(U_SAMPLER);
     //activadaLocation = shaderProgram->uniform("activada");
@@ -1255,8 +1276,6 @@ void __fastcall TEscena::InitGL()
     uLuz1IntensityLocation=shaderProgram->uniform(U_INT1);
 
     uSelectionEnabledLocation = shaderProgram->uniform(U_SELECTION_ENABLED);
-
-    glEnableVertexAttribArray(aTextureCoordLocation);
 
 
     /*
