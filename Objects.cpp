@@ -29,6 +29,11 @@ GLfloat light1_diffuse_c[4]  = {   0.8f,   0.8f,  0.8f, 1.0f };
 GLfloat light1_specular_c[4] = {   1.0f,   1.0f,  1.0f, 1.0f };
 GLfloat light1_position_c[4] = {   0.0f, 100.0f,  0.0f, 1.0f };
 
+GLfloat light2_ambient_c[4]  = {   0.2f,   0.2f,  0.2f, 1.0f };
+GLfloat light2_diffuse_c[4]  = {   0.8f,   0.8f,  0.8f, 1.0f };
+GLfloat light2_specular_c[4] = {   1.0f,   1.0f,  1.0f, 1.0f };
+GLfloat light2_position_c[4] = {   0.0f, 100.0f,  100.0f, 1.0f };
+
 GLfloat mat_ambient_c[4]    = { 0.7f, 0.7f, 0.7f, 1.0f };
 GLfloat mat_diffuse_c[4]    = { 0.8f, 0.8f, 0.8f, 1.0f };
 GLfloat mat_specular_c[4]   = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -1309,6 +1314,11 @@ TEscena::TEscena() {
     memcpy(light1_specular, light1_specular_c, 4*sizeof(float));
     memcpy(light1_position, light1_position_c, 4*sizeof(float));
 
+    memcpy(light2_ambient, light2_ambient_c, 4*sizeof(float));
+    memcpy(light2_diffuse, light2_diffuse_c, 4*sizeof(float));
+    memcpy(light2_specular, light2_specular_c, 4*sizeof(float));
+    memcpy(light2_position, light2_position_c, 4*sizeof(float));
+
     memcpy(mat_ambient, mat_ambient_c, 4*sizeof(float));
     memcpy(mat_diffuse, mat_diffuse_c, 4*sizeof(float));
     memcpy(mat_specular, mat_specular_c, 4*sizeof(float));
@@ -1366,18 +1376,23 @@ void __fastcall TEscena::InitGL()
         //glUniform1i(uLuz2Location, gui.light2_enabled);
     glUniform4fv(uLuz0PositionLocation, 1, (const GLfloat *)escena.light0_position);
     glUniform4fv(uLuz1PositionLocation, 1, (const GLfloat *)escena.light1_position);
-    //glUniform4fv(uLuz2PositionLocation, 1, (const GLfloat *)escena.light2_position);
+    glUniform4fv(uLuz2PositionLocation, 1, (const GLfloat *)escena.light2_position);
+
     glUniform1f(uLuz0IntensityLocation, gui.light0_intensity);
     glUniform1f(uLuz1IntensityLocation, gui.light1_intensity);
+    glUniform1f(uLuz2IntensityLocation, gui.light2_intensity);
 
     uLuz0Location=shaderProgram->uniform(U_LUZ0);
     uLuz1Location=shaderProgram->uniform(U_LUZ1);
+    uLuz2Location=shaderProgram->uniform(U_LUZ2);
 
     uLuz0PositionLocation=shaderProgram->uniform(U_POS0);
     uLuz1PositionLocation=shaderProgram->uniform(U_POS1);
+    uLuz2PositionLocation=shaderProgram->uniform(U_POS2);
 
     uLuz0IntensityLocation=shaderProgram->uniform(U_INT0);
     uLuz1IntensityLocation=shaderProgram->uniform(U_INT1);
+    uLuz2IntensityLocation=shaderProgram->uniform(U_INT2);
 
     uRenderPick3D = shaderProgram->uniform(U_PICK3D);
 
@@ -1405,6 +1420,20 @@ void __fastcall TEscena::InitGL()
     xy_aspect = (float)tw / (float)th;
     projectionMatrix = glm::perspective(45.0f, xy_aspect, 0.1f, 1000.0f);
     glUniformMatrix4fv(uProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+}
+
+void changeProyection(){
+    int tx, ty, tw, th;
+    GLUI_Master.get_viewport_area( &tx, &ty, &tw, &th );
+    glViewport( tx, ty, tw, th );
+    escena.xy_aspect = (float)tw / (float)th;
+    if(escena.perspectiva == 0){
+        escena.projectionMatrix = glm::perspective(45.0f, escena.xy_aspect, 0.1f, 1000.0f);
+    }
+    else{
+        escena.projectionMatrix = glm::ortho(-10.0f*escena.xy_aspect, 10.0f*escena.xy_aspect, -10.0f, 10.0f, -100.0f, 100.0f);
+    }
+    glUniformMatrix4fv(escena.uProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(escena.projectionMatrix));
 }
 
 
@@ -1473,12 +1502,16 @@ void __fastcall TEscena::Render()
 
     glUniform1i(uLuz0Location, gui.light0_enabled);
     glUniform1i(uLuz1Location, gui.light1_enabled);
+    glUniform1i(uLuz2Location, gui.light2_enabled);
     //glUniform1i(uLuz2Location, gui.light2_enabled);
     glUniform4fv(uLuz0PositionLocation, 1, (const GLfloat *)escena.light0_position);
     glUniform4fv(uLuz1PositionLocation, 1, (const GLfloat *)escena.light1_position);
+    glUniform4fv(uLuz2PositionLocation, 1, (const GLfloat *)escena.light2_position);
+
     //glUniform4fv(uLuz2PositionLocation, 1, (const GLfloat *)escena.light2_position);
     glUniform1f(uLuz0IntensityLocation, gui.light0_intensity);
     glUniform1f(uLuz1IntensityLocation, gui.light1_intensity);
+    glUniform1f(uLuz2IntensityLocation, gui.light2_intensity);
 
     //glUniform1i(uNoLights, 1);
     //glUniform1f(uLuz2IntensityLocation, gui.light2_intensity);
@@ -1517,6 +1550,8 @@ void __fastcall TEscena::Render()
     else{
         glFrontFace(GL_CCW);
     }
+
+    changeProyection();
 
     TPrimitiva *coche           = NULL;
     coche                       = GetCar(escena.seleccion);
@@ -1620,6 +1655,8 @@ void __fastcall TEscena::renderSelection()
     glClearColor(0.0, 0.7, 0.9, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    changeProyection();
 
     TPrimitiva *coche           = NULL;
     coche                       = GetCar(escena.seleccion);
@@ -1756,10 +1793,13 @@ TGui::TGui()
     enable_panel2 = 1;
     light0_enabled = 1;
     light1_enabled = 1;
+    light2_enabled = 1;
     light0_intensity = 0.2;
     light1_intensity = 0.4;
+    light2_intensity = 0.05;
     memcpy(light0_position, light0_position_c, 4*sizeof(float));
     memcpy(light1_position, light1_position_c, 4*sizeof(float));
+    memcpy(light2_position, light2_position_c, 4*sizeof(float));
 }
 
 void controlCallback(int control)
@@ -1815,7 +1855,7 @@ void __fastcall TGui::Init(int main_window) {
     new GLUI_Checkbox( obj_panel, "Culling", &escena.culling, 1, controlCallback );
     new GLUI_Checkbox( obj_panel, "Z Buffer", &escena.z_buffer, 1, controlCallback );
     new GLUI_Checkbox( obj_panel, "Antihorario", &escena.sentido, 1, controlCallback );
-    //new GLUI_Checkbox( obj_panel, "Proyecci�n paralela (on) o perspectiva (off)", &escena.perspectiva, 1, controlCallback );
+    new GLUI_Checkbox( obj_panel, "Proyeccion paralela (on) o perspectiva (off)", &escena.perspectiva, 1, controlCallback);
 
     /******** A�ade controles para las luces ********/
 
@@ -1826,6 +1866,7 @@ void __fastcall TGui::Init(int main_window) {
 
     GLUI_Panel *light0 = new GLUI_Panel( roll_lights, "Luz 1" );
     GLUI_Panel *light1 = new GLUI_Panel( roll_lights, "Luz 2" );
+    GLUI_Panel *light2 = new GLUI_Panel( roll_lights, "Luz 3" );
 
     new GLUI_Checkbox( light0, "Encendida", &light0_enabled, LIGHT0_ENABLED_ID, controlCallback );
     light0_spinner = new GLUI_Spinner( light0, "Intensidad:", &light0_intensity,
@@ -1854,6 +1895,20 @@ void __fastcall TGui::Init(int main_window) {
     sb->set_float_limits(-100,100);
     sb = new GLUI_Scrollbar( light1, "Z",GLUI_SCROLL_HORIZONTAL,
                             &escena.light1_position[2],LIGHT1_POSITION_ID,controlCallback);
+    sb->set_float_limits(-100,100);
+
+    new GLUI_Checkbox( light2, "Encendida", &light2_enabled, LIGHT2_ENABLED_ID, controlCallback );
+    light2_spinner = new GLUI_Spinner( light2, "Intensidad:", &light2_intensity,
+                            LIGHT2_INTENSITY_ID, controlCallback );
+    light2_spinner->set_float_limits( 0.0, 1.0 );
+    sb = new GLUI_Scrollbar( light2, "X",GLUI_SCROLL_HORIZONTAL,
+                            &escena.light2_position[0],LIGHT2_POSITION_ID,controlCallback);
+    sb->set_float_limits(-100,100);
+    sb = new GLUI_Scrollbar( light2, "Y",GLUI_SCROLL_HORIZONTAL,
+                            &escena.light2_position[1],LIGHT2_POSITION_ID,controlCallback);
+    sb->set_float_limits(-100,100);
+    sb = new GLUI_Scrollbar( light2, "Z",GLUI_SCROLL_HORIZONTAL,
+                            &escena.light2_position[2],LIGHT2_POSITION_ID,controlCallback);
     sb->set_float_limits(-100,100);
 
 
@@ -1941,6 +1996,13 @@ void __fastcall TGui::ControlCallback( int control )
                 light1_spinner->disable();
             break;
         }
+        case LIGHT2_ENABLED_ID: {
+            if ( light2_enabled )
+                light2_spinner->enable();
+            else
+                light2_spinner->disable();
+            break;
+        }
         case LIGHT0_INTENSITY_ID: {
 
             float v[] = {
@@ -1961,6 +2023,17 @@ void __fastcall TGui::ControlCallback( int control )
             v[0] *= light1_intensity;
             v[1] *= light1_intensity;
             v[2] *= light1_intensity;
+            break;
+        }
+        case LIGHT2_INTENSITY_ID: {
+
+            float v[] = {
+                escena.light2_diffuse[0],  escena.light2_diffuse[1],
+                escena.light2_diffuse[2],  escena.light2_diffuse[3] };
+
+            v[0] *= light2_intensity;
+            v[1] *= light2_intensity;
+            v[2] *= light2_intensity;
             break;
         }
         case ENABLE_ID: {
@@ -1993,6 +2066,7 @@ void __fastcall TGui::ControlCallback( int control )
             glutSetWindow(glui->get_glut_window_id());
             break;
         }
+
   } // switch
 }
 

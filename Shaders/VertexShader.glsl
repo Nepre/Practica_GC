@@ -8,13 +8,13 @@ uniform mat4 u_VMatrix;             // in: Matriz View (c�mara)
 uniform vec4 u_Color;		        // in: Color del objeto
 uniform int  u_Luz0;                // in: Indica si la luz 0 est� encedida
 uniform int  u_Luz1;
-//uniform int  u_Luz2;
+uniform int  u_Luz2;
 uniform vec4 u_Pos0;
 uniform vec4 u_Pos1;
-//uniform vec4 u_Pos2;
+uniform vec4 u_Pos2;
 uniform float u_Int0;
 uniform float u_Int1;
-//uniform float u_Int2;
+uniform float u_Int2;
 
 uniform int u_Render_Pick3D;
 
@@ -26,17 +26,17 @@ void main()
     if(u_Render_Pick3D == 0){
         vec4 LightPos0 = u_VMatrix*u_Pos0;
         vec4 LightPos1 = u_VMatrix*u_Pos1;
-        //vec4 LightPos2 = u_VMatrix*u_Pos2;
+        vec4 LightPos2 = u_VMatrix*u_Pos2;
 
         vec3 P = vec3(u_MVMatrix * a_Position);	            // Posici�n del v�rtice
         vec3 N = vec3(u_MVMatrix * vec4(a_Normal, 0.0));    // Normal del v�rtice
 
         float d0 = length(LightPos0.xyz - P);
         float d1 = length(LightPos1.xyz - P);
-        //float d2 = length(LightPos2.xyz - P);
+        float d2 = length(LightPos2.xyz - P);
         vec3  L0 = normalize(LightPos0.xyz - P);
         vec3  L1 = normalize(LightPos1.xyz - P);
-        //vec3  L2 = normalize(LightPos2.xyz - P);
+        vec3  L2 = normalize(LightPos2.xyz - P);
         vec4 coordenadas = vec4(P.x, P.y, P.z, 1.0);
         vec4 matrizVista = (u_VMatrix[3][0], u_VMatrix[3][1], u_VMatrix[3][2], u_VMatrix[3][0]);
         vec3 viewVec = normalize(vec3(u_VMatrix * matrizVista * (vec4(0.0, 0.0, 0.0, 1.0) - coordenadas))); // para la especular.
@@ -60,8 +60,16 @@ void main()
             // C�lculo de la atenuaci�n
             float attenuation = 80.0/(0.25+(0.01*d1)+(0.003*d1*d1));
             // vec3 reflectVec = reflect(-L1, N);
-            specular = 2 * attenuation * pow(max(0.0, dot(reflect(-L0, N), viewVec)), especularidad);
+            specular = 2 * attenuation * pow(max(0.0, dot(reflect(-L1, N), viewVec)), especularidad);
             resultado += diffuse*attenuation*u_Int1+ specular;
+        }
+        if (u_Luz2>0) {                                     // Si la luz 1 est� encendida se calcula la intesidad difusa de L
+            diffuse = max(dot(N, L2), 0.0);		            // C�lculo de la int. difusa
+            // C�lculo de la atenuaci�n
+            float attenuation = 80.0/(0.25+(0.01*d2)+(0.003*d2*d2));
+            // vec3 reflectVec = reflect(-L1, N);
+            specular = 2 * attenuation * pow(max(0.0, dot(reflect(-L2, N), viewVec)), especularidad);
+            resultado += diffuse*attenuation*u_Int2+ specular;
         }
 
         v_Color = u_Color * (ambient + resultado);
