@@ -36,6 +36,8 @@
 #define ARBOLES_ID	            1001
 #define BASURAS_ID              1002
 #define CABINAS_ID              1003
+#define CABINASMETAL_ID         10035
+#define CABINASCRISTAL_ID       10036
 #define CABLES_ID               1004
 #define CESPED_ID               1005
 #define CHIMENEAS_ID            1006
@@ -104,7 +106,7 @@
 #define U_POS1                  "u_Pos1"
 #define U_INT0                  "u_Int0"
 #define U_INT1                  "u_Int1"
-#define U_SELECTION_ENABLED     "u_selection_enabled"
+#define U_PICK3D                "u_Render_Pick3D"
 
 
 #define A_TEXTURECORD "a_TextureCoord"
@@ -166,7 +168,7 @@ public: // Atributos de la clase
 		int uLuz0IntensityLocation;
 		int uLuz1IntensityLocation;
 
-		int uSelectionEnabledLocation;
+		int uRenderPick3D;
 
 		//int uNoLights;
 		//int uLuz2IntensityLocation;

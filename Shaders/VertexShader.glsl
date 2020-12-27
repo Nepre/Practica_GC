@@ -16,14 +16,14 @@ uniform float u_Int0;
 uniform float u_Int1;
 //uniform float u_Int2;
 
-uniform int u_selection_enabled;
+uniform int u_Render_Pick3D;
 
 
 varying vec4 v_Color;		        // out: Color al fragment shader
 
 void main()
 {
-    if(u_selection_enabled == 0){
+    if(u_Render_Pick3D == 0){
         vec4 LightPos0 = u_VMatrix*u_Pos0;
         vec4 LightPos1 = u_VMatrix*u_Pos1;
         //vec4 LightPos2 = u_VMatrix*u_Pos2;

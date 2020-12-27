@@ -958,6 +958,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
             }
             break;
         }
+
         case FAROLAS2_ID: {
             if (escena.show_road) {
                 // C�lculo de la ModelView
@@ -1018,7 +1019,6 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
             break;
         }
 
-
         case PUERTAS_ID: {
             if (escena.show_road) {
                 // C�lculo de la ModelView
@@ -1038,7 +1038,6 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
             }
             break;
         }
-
 
         case COCHE_ID: {
             if (escena.show_car) {
@@ -1277,7 +1276,7 @@ void __fastcall TEscena::InitGL()
     uLuz0IntensityLocation=shaderProgram->uniform(U_INT0);
     uLuz1IntensityLocation=shaderProgram->uniform(U_INT1);
 
-    uSelectionEnabledLocation = shaderProgram->uniform(U_SELECTION_ENABLED);
+    uRenderPick3D = shaderProgram->uniform(U_PICK3D);
 
     glEnableVertexAttribArray(aTextureCoordLocation);
 
@@ -1498,7 +1497,7 @@ void __fastcall TEscena::Render()
     //glUniform1i(uNoLights, 1);
 
     // Dibujar carretera y objetos
-    glUniform1i(uSelectionEnabledLocation, 0);
+    glUniform1i(uRenderPick3D, 0);
 
 
     RenderObjects(seleccion);
@@ -1604,7 +1603,7 @@ void __fastcall TEscena::renderSelection()
 
     glUniformMatrix4fv(uVMatrixLocation, 1, GL_FALSE, glm::value_ptr(viewMatrix)); // Para la luz matrix view pero sin escalado!
 
-    glUniform1i(uSelectionEnabledLocation, 1);
+    glUniform1i(uRenderPick3D, 1);
 
     // Dibujar carretera y objetos
     RenderObjects(seleccion);
@@ -1783,7 +1782,7 @@ void __fastcall TGui::Init(int main_window) {
     new GLUI_StaticText( glui, "" );
 
     new GLUI_StaticText( glui, "  Autor:" );
-    new GLUI_StaticText( glui, "  2012-2016 (C) Juan Antonio Puchol  " );
+    new GLUI_StaticText( glui, "  2012-2020 (C) Juan Antonio Puchol  " );
 
     // A�ade una separaci�n
     new GLUI_StaticText( glui, "" );
