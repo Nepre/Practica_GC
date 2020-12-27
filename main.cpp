@@ -98,44 +98,45 @@ void Keyboard(unsigned char Key, int x, int y)
 static void SpecialKey(int key, int x, int y)
 {
     TPrimitiva *car = escena.GetCar(escena.seleccion);
-    float pi = 3.141592;
-    float gr = car->ry*pi /180.0;
-    float seno = sin(gr);
-    float coseno = cos(gr);
 
-    switch (key)
-    {
-        case GLUT_KEY_UP:   // El coche avanza
-            car->rr+=8;
-            car->tz -= 0.4 * seno;
-            car->tx -= 0.4 * coseno;
-            car->ry -= 0.03 * car->rot;
-            break;
-        case GLUT_KEY_DOWN:   // El coche retrocede
-            car->rr-=8;
-            car->tz += 0.4 * seno;
-            car->tx += 0.4 * coseno;
-            car->ry += 0.03 * car->rot;
-            break;
-        case GLUT_KEY_LEFT:
-            if(car->rot<30){
-                car->rot+=5;
+    if(car != NULL){
+        float pi = 3.141592;
+        float gr = car->ry*pi /180.0;
+        float seno = sin(gr);
+        float coseno = cos(gr);
+        switch (key)
+        {
+            case GLUT_KEY_UP:   // El coche avanza
+                car->rr+=8;
+                car->tz -= 0.4 * seno;
+                car->tx -= 0.4 * coseno;
+                car->ry -= 0.03 * car->rot;
+                break;
+            case GLUT_KEY_DOWN:   // El coche retrocede
+                car->rr-=8;
+                car->tz += 0.4 * seno;
+                car->tx += 0.4 * coseno;
+                car->ry += 0.03 * car->rot;
+                break;
+            case GLUT_KEY_LEFT:
+                if(car->rot<30){
+                    car->rot+=5;
+                }
+                break;
+            case GLUT_KEY_RIGHT:
+                if(car->rot>-30){
+                    car->rot-=5;
+                }
+                break;
+            if(car->rot<-30){
+                car->rot = -30;
             }
-            break;
-        case GLUT_KEY_RIGHT:
-            if(car->rot>-30){
-                car->rot-=5;
+            if(car->rot>30){
+                car->rot = 30;
             }
-            break;
-        if(car->rot<-30){
-            car->rot = -30;
-        }
-        if(car->rot>30){
-            car->rot = 30;
-        }
 
+        }
     }
-
     glutPostRedisplay();
 }
 

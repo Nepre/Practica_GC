@@ -437,13 +437,13 @@
 	<stdio.h>
 	<malloc.h>
 
-1607949804 source:d:\universidad\multimedia3therm1\gc\practica_gc\main.cpp
+1609064504 source:d:\universidad\multimedia3therm1\gc\practica_gc\main.cpp
 	"Objects.h"
 	<GL\glui.h>
 	"loadjpeg.c"
 	<iostream>
 
-1608039292 d:\universidad\multimedia3therm1\gc\practica_gc\objects.h
+1609063531 d:\universidad\multimedia3therm1\gc\practica_gc\objects.h
 	"Shader.h"
 	"Program.h"
 	<GL/glui.h>
@@ -466,7 +466,7 @@
 	<stdio.h>
 	<malloc.h>
 
-1608039796 source:d:\universidad\multimedia3therm1\gc\practica_gc\objects.cpp
+1609064603 source:d:\universidad\multimedia3therm1\gc\practica_gc\objects.cpp
 	"Objects.h"
 	<GL/glui.h>
 	"load3ds.c"
@@ -476,7 +476,7 @@
 	<stdio.h>
 	<malloc.h>
 
-1445335940 source:d:\universidad\multimedia3therm1\gc\practica_gc\program.cpp
+1609063574 source:d:\universidad\multimedia3therm1\gc\practica_gc\program.cpp
 	"Program.h"
 
 1445363315 source:d:\universidad\multimedia3therm1\gc\practica_gc\shader.cpp

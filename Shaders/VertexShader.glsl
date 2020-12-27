@@ -1,12 +1,12 @@
 
-attribute vec4 a_Position;	        // in: Posición de cada vértice
-attribute vec3 a_Normal;	        // in: Normal de cada vértice
+attribute vec4 a_Position;	        // in: Posiciï¿½n de cada vï¿½rtice
+attribute vec3 a_Normal;	        // in: Normal de cada vï¿½rtice
 
 uniform mat4 u_ProjectionMatrix; 	// in: Matriz Projection
 uniform mat4 u_MVMatrix;	        // in: Matriz ModelView
-uniform mat4 u_VMatrix;             // in: Matriz View (cámara)
+uniform mat4 u_VMatrix;             // in: Matriz View (cï¿½mara)
 uniform vec4 u_Color;		        // in: Color del objeto
-uniform int  u_Luz0;                // in: Indica si la luz 0 está encedida
+uniform int  u_Luz0;                // in: Indica si la luz 0 estï¿½ encedida
 uniform int  u_Luz1;
 //uniform int  u_Luz2;
 uniform vec4 u_Pos0;
@@ -28,8 +28,8 @@ void main()
         vec4 LightPos1 = u_VMatrix*u_Pos1;
         //vec4 LightPos2 = u_VMatrix*u_Pos2;
 
-        vec3 P = vec3(u_MVMatrix * a_Position);	            // Posición del vértice
-        vec3 N = vec3(u_MVMatrix * vec4(a_Normal, 0.0));    // Normal del vértice
+        vec3 P = vec3(u_MVMatrix * a_Position);	            // Posiciï¿½n del vï¿½rtice
+        vec3 N = vec3(u_MVMatrix * vec4(a_Normal, 0.0));    // Normal del vï¿½rtice
 
         float d0 = length(LightPos0.xyz - P);
         float d1 = length(LightPos1.xyz - P);
@@ -45,19 +45,19 @@ void main()
         float diffuse = 0.5;
         float resultado = 0.0;
         float specular = 0.0;
-        int especularidad = 20;
+        int especularidad = 30;
 
-        if (u_Luz0>0) {                                     // Si la luz 0 está encendida se calcula la intesidad difusa de L
-            diffuse = max(dot(N, L0), 0.0);		            // Cálculo de la int. difusa
-            // Cálculo de la atenuación
+        if (u_Luz0>0) {                                     // Si la luz 0 estï¿½ encendida se calcula la intesidad difusa de L
+            diffuse = max(dot(N, L0), 0.0);		            // Cï¿½lculo de la int. difusa
+            // Cï¿½lculo de la atenuaciï¿½n
             float attenuation = 80.0/(0.25+(0.01*d0)+(0.003*d0*d0));
             // vec3 reflectVec = reflect(-L0, N);
             specular = 2 * attenuation * pow(max(0.0, dot(reflect(-L0, N), viewVec)), especularidad);
             resultado += diffuse*attenuation*u_Int0 + specular;
         }
-        if (u_Luz1>0) {                                     // Si la luz 1 está encendida se calcula la intesidad difusa de L
-            diffuse = max(dot(N, L1), 0.0);		            // Cálculo de la int. difusa
-            // Cálculo de la atenuación
+        if (u_Luz1>0) {                                     // Si la luz 1 estï¿½ encendida se calcula la intesidad difusa de L
+            diffuse = max(dot(N, L1), 0.0);		            // Cï¿½lculo de la int. difusa
+            // Cï¿½lculo de la atenuaciï¿½n
             float attenuation = 80.0/(0.25+(0.01*d1)+(0.003*d1*d1));
             // vec3 reflectVec = reflect(-L1, N);
             specular = 2 * attenuation * pow(max(0.0, dot(reflect(-L0, N), viewVec)), especularidad);
