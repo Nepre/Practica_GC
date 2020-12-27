@@ -38,17 +38,18 @@ GLfloat mat_shininess_c[1] = { 100.0f };
 float view_rotate_c[16] = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
 float view_position_c[3] = { 0.0, -2.0, -9.0 };
 
-float coloresc_c[2][4] = { {0.4, 1, 0.2, 1.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del
-float coloresc_c2[2][4] = { {0.35, 0.1, 0.4, 1.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del coche
+float coloresc_c[2][4] = { {0.4, 1, 0.2, 2.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del
+float coloresc_c2[2][4] = { {0.35, 0.1, 0.4, 2.0}, {0.5, 0.5, 0.5, 1.0}}; // Color del coche
 
-float coloresr_c[2][4] = { {0.3, 0.3, 0.3, 1.0}, {1.0, 1.0, 1.0, 1.0}}; // Color de la carretera
-float coloresArbol_c[2][4] = { {0.372, 0.635, 0.341, 1.0}, {1.0, 1.0, 1.0, 1.0}};
-float coloresCabina_c[2][4] = { {0.901, 0.058, 0.196, 1.0}, {1.0, 1.0, 1.0, 1.0}};
-float coloresBlanco_c[2][4] = { {0.874, 0.847, 0.850, 1.0}, {1.0, 1.0, 1.0, 1.0}};
-float coloresGris_c[2][4] = { {0.650, 0.650, 0.650, 1.0}, {1.0, 1.0, 1.0, 1.0}};
-float coloresVentana_c[2][4] = { {0.682, 0.890, 0.898, 1.0}, {1.0, 1.0, 1.0, 1.0}};
-float coloresMuros_c[2][4] = { {0.972, 0.678, 0.588, 1.0}, {1.0, 1.0, 1.0, 1.0}};
-float coloresTejado_c[2][4] = { {0.411, 0.411, 0.411, 1.0}, {1.0, 1.0, 1.0, 1.0}};
+float coloresr_c[2][4] = { {0.3, 0.3, 0.3, 2.0}, {1.0, 1.0, 1.0, 1.0}}; // Color de la carretera
+float coloresArbol_c[2][4] = { {0.372, 0.635, 0.341, 2.0}, {1.0, 1.0, 1.0, 1.0}};
+float coloresCabina_c[2][4] = { {0.901, 0.058, 0.196, 2.0}, {1.0, 1.0, 1.0, 1.0}};
+float coloresBlanco_c[2][4] = { {0.874, 0.847, 0.850, 2.0}, {1.0, 1.0, 1.0, 1.0}};
+float coloresGris_c[2][4] = { {0.650, 0.650, 0.650, 2.0}, {1.0, 1.0, 1.0, 1.0}};
+float coloresVentana_c[2][4] = { {0.682, 0.890, 0.898, 2.0}, {1.0, 1.0, 1.0, 1.0}};
+float coloresVentanaCabina_c[2][4] = { {0.682, 0.890, 0.898, 1.0}, {1.0, 1.0, 1.0, 1.0}};
+float coloresMuros_c[2][4] = { {0.972, 0.678, 0.588, 2.0}, {1.0, 1.0, 1.0, 1.0}};
+float coloresTejado_c[2][4] = { {0.411, 0.411, 0.411, 2.0}, {1.0, 1.0, 1.0, 1.0}};
 
 
 //************************************************************** Variables de clase
@@ -140,6 +141,30 @@ TPrimitiva::TPrimitiva(int DL, int t)
             //************************ Cargar modelos 3ds ***********************************
             // formato 8 floats por v�rtice (x, y, z, A, B, C, u, v)
             modelo0 = Load3DS("../../Modelos/Ciudad/CabinasTelefonicas.3ds", &num_vertices0);
+            break;
+		}
+
+		case CABINASMETAL_ID: {
+
+		    tx = ty = tz = 0;
+
+		    memcpy(colores, coloresGris_c, 8*sizeof(float));
+
+            //************************ Cargar modelos 3ds ***********************************
+            // formato 8 floats por v�rtice (x, y, z, A, B, C, u, v)
+            modelo0 = Load3DS("../../Modelos/Ciudad/CabinaMetal.3ds", &num_vertices0);
+            break;
+		}
+
+		case CABINASCRISTAL_ID: {
+
+		    tx = ty = tz = 0;
+
+		    memcpy(colores, coloresVentanaCabina_c, 8*sizeof(float));
+
+            //************************ Cargar modelos 3ds ***********************************
+            // formato 8 floats por v�rtice (x, y, z, A, B, C, u, v)
+            modelo0 = Load3DS("../../Modelos/Ciudad/CabinaCristal.3ds", &num_vertices0);
             break;
 		}
 
@@ -443,6 +468,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case CARRETERA_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -472,6 +498,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case ALCANTARILLAS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -492,6 +519,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case ARBOLES_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -512,6 +540,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case BASURAS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -532,6 +561,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case CABINAS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -559,8 +589,55 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
             break;
         }
 
+        case CABINASMETAL_ID: {
+            if (escena.show_road) {
+                // C�lculo de la ModelView
+                glDisable(GL_BLEND);
+                modelMatrix     = glm::mat4(1.0f); // matriz identidad
+                modelViewMatrix = escena.viewMatrix * modelMatrix;
+                // Env�a nuestra ModelView al Vertex Shader
+                glUniformMatrix4fv(escena.uMVMatrixLocation, 1, GL_FALSE, &modelViewMatrix[0][0]);
+
+                // Pintar la carretera
+                glUniform4fv(escena.uColorLocation, 1, colores[0]);
+                //                   Asociamos los v�rtices y sus normales
+                glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
+                glVertexAttribPointer(escena.aNormalLocation, NORMAL_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+3);
+
+
+                glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+
+            }
+            break;
+        }
+
+         case CABINASCRISTAL_ID: {
+            if (escena.show_road) {
+                // C�lculo de la ModelView
+                glDisable(GL_CULL_FACE);
+                glEnable(GL_BLEND);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                modelMatrix     = glm::mat4(1.0f); // matriz identidad
+                modelViewMatrix = escena.viewMatrix * modelMatrix;
+                // Env�a nuestra ModelView al Vertex Shader
+                glUniformMatrix4fv(escena.uMVMatrixLocation, 1, GL_FALSE, &modelViewMatrix[0][0]);
+
+                // Pintar la carretera
+                glUniform4fv(escena.uColorLocation, 1, colores[0]);
+                //                   Asociamos los v�rtices y sus normales
+                glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
+                glVertexAttribPointer(escena.aNormalLocation, NORMAL_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0+3);
+
+
+                glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
+
+            }
+            break;
+        }
+
         case CABLES_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -581,6 +658,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case CESPED_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -601,6 +679,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case CHIMENEAS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -621,6 +700,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case CONTENEDORES_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -641,6 +721,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case COSAS_PARQUE_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -661,6 +742,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case DETALLES_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -681,6 +763,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case EDIFICIO_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -701,6 +784,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case EDIFICIOSYMUROS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -721,6 +805,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case FAROLAS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -741,6 +826,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case SEMAFORO_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -761,6 +847,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case SILLASYMESAS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -781,6 +868,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case TEJADOEXTRAS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -801,6 +889,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case TOLDOS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -821,6 +910,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case VALLASBAJAS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -841,6 +931,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case VENTANASBASICA_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -861,6 +952,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case VENTANASBASICASUB_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -881,6 +973,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case VENTANASPICOBASICA_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -901,6 +994,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case EDIFICIOMEDIEVAL_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -921,6 +1015,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case NINETREE_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -941,6 +1036,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case MERCADO_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -961,6 +1057,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case FAROLAS2_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -981,6 +1078,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case CARRETERA2_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -1001,6 +1099,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case VENTANAS2_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -1021,6 +1120,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case PUERTAS_ID: {
             if (escena.show_road) {
+                glDisable(GL_BLEND);
                 // C�lculo de la ModelView
                 modelMatrix     = glm::mat4(1.0f); // matriz identidad
                 modelViewMatrix = escena.viewMatrix * modelMatrix;
@@ -1041,6 +1141,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
         case COCHE_ID: {
             if (escena.show_car) {
+                glDisable(GL_BLEND);
                 glUniform4fv(escena.uColorLocation, 1, (const GLfloat *) colores[0]);
                 // Asociamos los v�rtices y sus normales
                 glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo0);
@@ -1061,6 +1162,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
                 glDrawArrays(GL_TRIANGLES, 0, num_vertices0);
                 //std::cout<<seleccion<<"  "<<escena.seleccion<<std::endl;
                 if(seleccion + 1 == escena.seleccion){
+                    glDisable(GL_BLEND);
                     glUniform4fv(escena.uColorLocation, 1, (const GLfloat *) colores[0]);
                     // Asociamos los v�rtices y sus normales
                     glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo2);
@@ -1086,6 +1188,7 @@ void __fastcall TPrimitiva::Render(int seleccion, bool reflejo)
 
             if (escena.show_wheels)
             {
+                glDisable(GL_BLEND);
                 glUniform4fv(escena.uColorLocation, 1, (const GLfloat *) colores[1]);
                 // Asociamos los v�rtices y sus normales
                 glVertexAttribPointer(escena.aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, modelo1);

@@ -268,6 +268,8 @@ int main(int argc, char* argv[])
     TPrimitiva *arboles = new TPrimitiva(1, ARBOLES_ID);
     TPrimitiva *basuras = new TPrimitiva(1, BASURAS_ID);
     TPrimitiva *cabinas = new TPrimitiva(1, CABINAS_ID);
+    TPrimitiva *cabinasMetal = new TPrimitiva(1, CABINASMETAL_ID);
+    TPrimitiva *cabinasCristal = new TPrimitiva(1, CABINASCRISTAL_ID);
     TPrimitiva *cables = new TPrimitiva(1, CABLES_ID);
     TPrimitiva *cesped = new TPrimitiva(1, CESPED_ID);
     TPrimitiva *chimenea = new TPrimitiva(1, CHIMENEAS_ID);
@@ -301,7 +303,7 @@ int main(int argc, char* argv[])
     car2->colores[0][0] = 0.35;
     car2->colores[0][1] = 0.1;
     car2->colores[0][2] = 0.4;
-    car2->colores[0][3] = 1.0;
+    car2->colores[0][3] = 2.0;
 
 
 
@@ -312,6 +314,7 @@ int main(int argc, char* argv[])
     escena.AddObject(arboles);
     escena.AddObject(basuras);
     escena.AddObject(cabinas);
+    escena.AddObject(cabinasMetal);
     escena.AddObject(cables);
     escena.AddObject(cesped);
     escena.AddObject(chimenea);
@@ -336,6 +339,8 @@ int main(int argc, char* argv[])
     escena.AddObject(farolas2);
     escena.AddObject(carretera2);
     escena.AddObject(ventanas2);
+
+    escena.AddObject(cabinasCristal);
 
     cargarTexturas();
 
