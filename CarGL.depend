@@ -443,7 +443,7 @@
 	"loadjpeg.c"
 	<iostream>
 
-1609090643 d:\universidad\multimedia3therm1\gc\practica_gc\objects.h
+1609091095 d:\universidad\multimedia3therm1\gc\practica_gc\objects.h
 	"Shader.h"
 	"Program.h"
 	<GL/glui.h>
@@ -466,7 +466,7 @@
 	<stdio.h>
 	<malloc.h>
 
-1609089922 source:d:\universidad\multimedia3therm1\gc\practica_gc\objects.cpp
+1609091761 source:d:\universidad\multimedia3therm1\gc\practica_gc\objects.cpp
 	"Objects.h"
 	<GL/glui.h>
 	"load3ds.c"
